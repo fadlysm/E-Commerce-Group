@@ -33,7 +33,7 @@ CREATE TABLE Payment_Detail (
     CVV INT CHECK (CVV BETWEEN 100 AND 999),
     is_main_method BOOLEAN DEFAULT FALSE,
     Customer_ID INT,
-    FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID) ON DELETE CASCADE
+    FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID) 
 );
 
 CREATE TABLE Address (
@@ -44,7 +44,7 @@ CREATE TABLE Address (
     State VARCHAR(100) NOT NULL,
     is_main_address BOOLEAN DEFAULT FALSE,
     Customer_ID INT,
-    FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID) ON DELETE CASCADE
+    FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID) 
 );
 
 CREATE TABLE Payment_Transaction (
@@ -53,7 +53,7 @@ CREATE TABLE Payment_Transaction (
     Payment_amount DECIMAL(10,2) NOT NULL,
     Transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Payment_detail_ID INT,
-    FOREIGN KEY (Payment_detail_ID) REFERENCES Payment_Detail(Payment_detail_ID) ON DELETE SET NULL
+    FOREIGN KEY (Payment_detail_ID) REFERENCES Payment_Detail(Payment_detail_ID) 
 );
 
 CREATE TABLE "order" (
@@ -64,8 +64,8 @@ CREATE TABLE "order" (
     Order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Customer_ID INT,
     Payment_Transaction_ID INT,
-    FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID) ON DELETE CASCADE,
-    FOREIGN KEY (Payment_Transaction_ID) REFERENCES Payment_Transaction(Payment_Transaction_ID) ON DELETE SET NULL
+    FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID) ,
+    FOREIGN KEY (Payment_Transaction_ID) REFERENCES Payment_Transaction(Payment_Transaction_ID) 
 );
 
 	
@@ -98,7 +98,7 @@ CREATE TABLE Product (
     Rating NUMERIC(2,1) CHECK (Rating BETWEEN 0 AND 5),
     Total_sold INT DEFAULT 0,
     Seller_ID INT,
-    FOREIGN KEY (Seller_ID) REFERENCES Seller(Seller_ID) ON DELETE CASCADE
+    FOREIGN KEY (Seller_ID) REFERENCES Seller(Seller_ID) 
 );
 
 
@@ -107,8 +107,8 @@ CREATE TABLE Order_Detail (
     Quantity INT NOT NULL CHECK (Quantity > 0),
     Order_ID INT,
 	Product_ID INT,
-    FOREIGN KEY (Order_ID) REFERENCES "order"(Order_ID) ON DELETE CASCADE,
-    FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID) ON DELETE CASCADE
+    FOREIGN KEY (Order_ID) REFERENCES "order"(Order_ID) ,
+    FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID) 
 );
 
 CREATE TABLE Warehouse (
@@ -119,13 +119,13 @@ CREATE TABLE Warehouse (
     State VARCHAR(100) NOT NULL,
     Zip_code VARCHAR(20) NOT NULL,
 	Seller_ID INT,
-    FOREIGN KEY (Seller_ID) REFERENCES Seller(Seller_ID) ON DELETE CASCADE
+    FOREIGN KEY (Seller_ID) REFERENCES Seller(Seller_ID) 
 );
 
 CREATE TABLE Rating (
     Rating NUMERIC(2,1) CHECK (Rating BETWEEN 0 AND 5),
     Order_detail_ID INT,
-    FOREIGN KEY (Order_detail_ID) REFERENCES Order_Detail(Order_detail_ID) ON DELETE CASCADE
+    FOREIGN KEY (Order_detail_ID) REFERENCES Order_Detail(Order_detail_ID) 
 );
 
 
@@ -134,8 +134,8 @@ CREATE TABLE Inventory (
     Current_quantity INT NOT NULL CHECK (Current_quantity >= 0),
     Product_ID INT,
 	Warehouse_ID INT,
-    FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID) ON DELETE CASCADE,
-    FOREIGN KEY (Warehouse_ID) REFERENCES Warehouse(Warehouse_ID) ON DELETE CASCADE
+    FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID) ,
+    FOREIGN KEY (Warehouse_ID) REFERENCES Warehouse(Warehouse_ID) 
 );
 
 CREATE TABLE Inventory_History (
@@ -143,5 +143,5 @@ CREATE TABLE Inventory_History (
     Reason TEXT NOT NULL,
     Update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Inventory_ID INT,
-    FOREIGN KEY (Inventory_ID) REFERENCES Inventory(Inventory_ID) ON DELETE CASCADE
+    FOREIGN KEY (Inventory_ID) REFERENCES Inventory(Inventory_ID) 
 );
